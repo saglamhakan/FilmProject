@@ -66,7 +66,16 @@ public class Main {
                     String filmCategory = scanner.nextLine();
                     System.out.print("Enter film title: ");
                     String filmTitle = scanner.nextLine();
-                    filmPlatform.addFilm(platformForFilm, filmCategory, filmTitle);
+                    System.out.print("Enter film year: ");
+                    int filmYear = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter film director: ");
+                    String filmDirector = scanner.nextLine();
+                    System.out.print("Enter film IMDb rating: ");
+                    double filmImdbRating = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    filmPlatform.addFilm(platformForFilm, filmCategory, filmTitle, filmYear, filmDirector, filmImdbRating);
                     System.out.println("Film added successfully.");
                     break;
                 case 0:
@@ -83,9 +92,9 @@ public class Main {
         do {
             System.out.println("Customer Menu:");
             System.out.println("Select a platform:");
-            List<Platform> platforms = filmPlatform.getPlatforms();
+            List<Category> platforms = filmPlatform.getPlatforms();
             for (int i = 0; i < platforms.size(); i++) {
-                System.out.println((i + 1) + ". " + platforms.get(i).getName());
+                System.out.println((i + 1) + ". " + platforms.get(i).getName()); //index leri gösterir
             }
             System.out.println("0. Go back");
 
@@ -93,7 +102,7 @@ public class Main {
             scanner.nextLine();
 
             if (choice >= 1 && choice <= platforms.size()) {
-                Platform selectedPlatform = platforms.get(choice - 1);
+                Category selectedPlatform = platforms.get(choice - 1);
                 System.out.println("Platform: " + selectedPlatform.getName());
                 List<String> categories = new ArrayList<>(selectedPlatform.getCategories().keySet());
                 for (int i = 0; i < categories.size(); i++) {
@@ -111,7 +120,7 @@ public class Main {
                     List<Film> films = selectedPlatform.getFilmsByCategory(selectedCategory);
                     System.out.println("Films in " + selectedCategory + ":");
                     for (Film film : films) {
-                        System.out.println(film.getName());
+                        System.out.println(film.getFilmName());
                     }
                 } else if (categoryChoice == 0) {
                     System.out.println("Returning to previous menu...");

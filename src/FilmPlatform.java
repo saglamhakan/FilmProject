@@ -2,59 +2,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilmPlatform {
-    public List<Platform> getPlatforms() {
-        return platforms;
+
+    private List<Category> categories; //platforms adında platform filminin classının örneklerini içeren bi liste
+
+    public List<Category> getPlatforms() {
+        return categories;
     }
 
-    public void setPlatforms(List<Platform> platforms) {
-        this.platforms = platforms;
+    public void setPlatforms(List<Category> categories) {
+        this.categories = categories;
     }
-
-    private List<Platform> platforms;
 
     public FilmPlatform() {
-        this.platforms = new ArrayList<>();
+        this.categories = new ArrayList<>();
     }
 
-    public void addPlatform(String platformName) {
-        Platform platform = new Platform(platformName);
-        platforms.add(platform);
+    public void addPlatform(String platformName) { //yeni bir film platformu eklemek için kullanılır.
+        Category category = new Category(platformName);
+        categories.add(category);
     }
 
-    public void addCategory(String platformName, String category) {
-        Platform platform = getPlatformByName(platformName);
+    public void addCategory(String platformName, String category) { //Belirli bir film platformuna kategori eklemek için kulllanılır
+        Category platform = getPlatformByName(platformName);
         if (platform != null) {
             platform.addCategory(category);
         }
     }
 
-    public void addFilm(String platformName, String category, String filmTitle) {
-        Platform platform = getPlatformByName(platformName);
+    public void addFilm(String platformName, String category, String filmTitle, int year, String direction, double imdbRating) {
+        Category platform = getPlatformByName(platformName);
         if (platform != null) {
-            platform.addFilm(category, filmTitle);
+            platform.addFilm(category, filmTitle, year, direction, imdbRating);
         }
     }
 
-    public List<Film> getFilmsByCategory(String platformName, String category) {
-        Platform platform = getPlatformByName(platformName);
-        if (platform != null) {
-            return platform.getFilmsByCategory(category);
-        }
-        return new ArrayList<>();
-    }
 
-    public int getTotalFilmCount(String platformName) {
-        Platform platform = getPlatformByName(platformName);
-        if (platform != null) {
-            return platform.getTotalFilmCount();
-        }
-        return 0;
-    }
 
-    private Platform getPlatformByName(String platformName) {
-        for (Platform platform : platforms) {
-            if (platform.getName().equalsIgnoreCase(platformName)) {
-                return platform;
+    private Category getPlatformByName(String platformName) {  //Bulunmak istenen platformu bulamk için kullanırız
+        for (Category category : categories) {
+            if (category.getName().equalsIgnoreCase(platformName)) {
+                return category;
             }
         }
         return null;
